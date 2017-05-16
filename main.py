@@ -16,7 +16,9 @@ def formatted_time():
     import machine
     rtc = machine.RTC()
     curtime = rtc.datetime()
-    return "%s-%02d-%02dT%02d:%02d:%02d" % (curtime[0],curtime[1],curtime[2],curtime[4],curtime[5],curtime[6])
+    return "%s-%02d-%02dT%02d:%02d:%02d" % (curtime[0],curtime[1],
+                                            curtime[2],curtime[4],
+                                            curtime[5],curtime[6])
 
 def get_temp_humid():
     import ujson
@@ -24,8 +26,9 @@ def get_temp_humid():
     import dht
     d = dht.DHT22(machine.Pin(4))
     d.measure()
-    return ujson.dumps({"time": formatted_time(),"temp": d.temperature(), "humid": d.humidity()})
-
+    return ujson.dumps({"time": formatted_time(),
+                        "temp": d.temperature(),
+                        "humid": d.humidity()})
 
 def post_data(payload):
     from umqtt.simple import MQTTClient
@@ -39,5 +42,5 @@ import ntptime
 ntptime.settime()
 
 while True:
-    time.sleep(15)
+    time.sleep(config.SAMPLE)
     post_data(get_temp_humid())
