@@ -1,6 +1,8 @@
 Using the feather Huzzah IoT kit and included ESP8266 I created a temperature 
 logger for my home office.
 
+![](https://jduckles-dropshare.s3-us-west-2.amazonaws.com/IMG_3266-lFmLo2Ak48.JPG)
+
 I flashed the firmware from the factory Lua interpreter to micropython using 
 [these instructions](https://docs.micropython.org/en/latest/esp8266/esp8266/tutorial/intro.html).
 
