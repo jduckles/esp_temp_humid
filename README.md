@@ -18,3 +18,6 @@ up and listening on port 1883.
 
 What you do with it from there is up to you.
 
+A bit of smoothing to 5-minute in R and we see my office is cold in the morning before I turn on the space heater.
+![](https://jduckles-dropshare.s3-us-west-2.amazonaws.com/Rplot-ZbEaMBhv6j.jpeg)
+
