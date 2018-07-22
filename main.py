@@ -1,5 +1,6 @@
 import config # Bring in config file for configuration parameters
 import time
+from machine import Pin, PWM
 
 def do_connect():
     import network
@@ -26,9 +27,23 @@ def get_temp_humid():
     import dht
     d = dht.DHT22(machine.Pin(4))
     d.measure()
+    set_led(red=1024*(d.temperature()/40))
     return ujson.dumps({"time": formatted_time(),
                         "temp": d.temperature(),
                         "humid": d.humidity()})
+
+def set_led(red=0,green=0,blue=0):
+    r = PWM(Pin(12)) # Red
+    g = PWM(Pin(13)) # Green
+    b = PWM(Pin(14)) # Blue
+    r.freq(500)
+    g.freq(500)
+    b.freq(500)
+    r.duty(int(red))
+    g.duty(int(green))
+    b.duty(int(blue))
+
+
 
 def post_data(payload):
     from umqtt.simple import MQTTClient
@@ -42,5 +57,5 @@ import ntptime
 ntptime.settime()
 
 while True:
-    time.sleep(config.SAMPLE)
+    time.sleep(int(config.SAMPLE))
     post_data(get_temp_humid())
